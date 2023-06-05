@@ -14,7 +14,7 @@ git clone https://github.com/Rlhoste/ImageAggregator.git
 cd ImageAggregator
 python3 ImageAggregator.py
 ```
-the result is save at the root of the python file
+the result is saved at the root of the python file
 
 ## Examples
 
