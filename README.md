@@ -8,7 +8,7 @@ Aggregate image and annotate it easily in Python with a Tkinter user friendly in
 - Choose your files
 - Choose to annotate with (a),(b)...(z)
 
-# Run for executable
+# Run from executable
 
 run dist/ImageAggregator
 
