@@ -7,7 +7,10 @@ Aggregate image and annotate it easily in Python with a Tkinter user friendly in
 - Choose the number of images in a row
 - Choose your files
 - Choose to annotate with (a),(b)...(z)
-
+## Requirements
+```
+pip install -r requirements.txt
+```
 ## Run
 ```
 git clone https://github.com/Rlhoste/ImageAggregator.git
