@@ -27,6 +27,4 @@ the result is saved at the root of the python file
 
 ![Image Description](images/withoutLegend.png)
 
-## Known Bugs 
 
-It just need a little fix for the number of columns, it takes the same as the row for now

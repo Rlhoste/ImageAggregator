@@ -1,6 +1,7 @@
 import os
 from PIL import Image
 import matplotlib
+import math
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import string
@@ -33,15 +34,17 @@ def run(image_paths):
 
 def display_images(image_paths):
     alphabet = list(string.ascii_lowercase)
-
+    global grid_size
     # Clear the existing figure
     plt.clf()
 
     # Calculate the number of images
     num_images = len(image_paths)
-
+    num_rows = math.ceil(num_images / grid_size)
     # Create the grid layout for the images
-    fig, axes = plt.subplots(grid_size, grid_size, figsize=(10, 10))
+    if num_images < grid_size:
+        grid_size = num_images
+    fig, axes = plt.subplots(num_rows, grid_size, figsize=(10, 10))
 
     # Iterate over the image paths and plot each image
     for i, image_path in enumerate(image_paths):
@@ -52,20 +55,45 @@ def display_images(image_paths):
         row = i // grid_size
         col = i % grid_size
 
-        # Plot the image
-        axes[row, col].imshow(image)
-        axes[row, col].axis('off')
+                # Plot the image
+        if num_rows > 1:
+            axes[row, col].imshow(image)
+            axes[row, col].axis('off')
+            if show_legend:
+                # Add label below each image
+                axes[row, col].text(0.5, -0.1, "("  + alphabet[i] + ")", transform=axes[row, col].transAxes,
+                                ha='center', va='center')
+                
+        else:
+            axes[col].imshow(image)
+            axes[col].axis('off')
+            if show_legend:
+                # Add label below each image
+                axes[col].text(0.5, -0.1, "(" + alphabet[i] + ")", transform=axes[col].transAxes,
+                                ha='center', va='center')
+                # axes[col].text(0.5, -0.1, "(" + str(row) + "," + str(col) + ")", transform=axes[col].transAxes,
+                #                 ha='center', va='center')
 
-        if show_legend:
-            # Add label below each image
-            axes[row, col].text(0.5, -0.1, "(" + alphabet[i] + ")", transform=axes[row, col].transAxes,
-                            ha='center', va='center')
+        # # Plot the image
+        # axes[row, col].imshow(image)
+        # axes[row, col].axis('off')
 
+        # if show_legend:
+        #     # Add label below each image
+        #     if num_rows > 1:
+        #         axes[row, col].text(0.5, -0.1, "(" + alphabet[i] + ")", transform=axes[row, col].transAxes,
+        #                     ha='center', va='center')
+        #     else:
+        #         axes[col].text(0.5, -0.1, "(" + alphabet[i] + ")", transform=axes[col].transAxes,
+        #                     ha='center', va='center')
     # Hide empty subplots
-    for i in range(num_images, grid_size ** 2):
+    for i in range(num_images, grid_size * num_rows):
         row = i // grid_size
         col = i % grid_size
-        axes[row, col].axis('off')
+        if num_rows > 1:
+            axes[row, col].axis('off')
+        else:
+            axes[col].axis('off')
 
     # Adjust spacing between subplots
     plt.tight_layout()
